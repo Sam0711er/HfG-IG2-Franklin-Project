@@ -8,15 +8,12 @@ TBD
 
 
 ## Credit
-Prof. Dr. Franklin Hernández-Castro
-
+Prof. Dr. Franklin Hernández-Castro</br>
 3-dimensionale Grundlagen
 
 
-Hochschule für Gestaltung Schwäbisch Gmünd
-
-Rektor-Klaus-Straße 100
-
+Hochschule für Gestaltung Schwäbisch Gmünd</br>
+Rektor-Klaus-Straße 100</br>
 73525 Schwäbisch Gmünd
 
 
