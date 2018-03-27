@@ -11,12 +11,13 @@ function onReady(){
             video.src = window.URL.createObjectURL(stream); // stream
             console.log('Camera access granted. Setup initialized.');
             draw();
+            setupPolyer();
         });
     }
 }
 
 function draw(){
-  console.log('draw() called');
+  //console.log('draw() called');
 
 
 
@@ -27,6 +28,19 @@ function draw(){
 
   // Continuos Refresh of draw()
   requestAnimFrame(draw);
+}
+
+
+var canvas_box = document.getElementById("canvas-box"),
+    videoCanvas = document.createElement("videoCanvas"),
+    srcs = ["./img/dog.jpg", "./img/tiger.jpg", "./img/cat.jpg"],
+    WebGLs,
+    points,
+    poly;
+
+function setupPolyer(){
+
+  console.log(panel);
 }
 
 // MARK: Animation requests
