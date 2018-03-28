@@ -1,29 +1,24 @@
 video, canvas{
-    border:1px solid rgba(84, 84, 102, 0.8);
+    outline:2px solid #beffc7;
     position: absolute;
 }
 
-h1 {
-    font-weight: normal;
-    font-variant: normal;
-    font-style: normal;
-    font-size: 12px;
-    font-family: Roboto-Medium,sans-serif;
-    color:#808080;
-    /*text-align:center;*/
-}
+h1      {
+    font-size: 23px;
+    font-family: 'Product Sans';
+    color:#beeaff;
+    }
 
-h2 {
-    font-weight: normal;
-    font-variant: normal;
-    font-style: normal;
-    font-size: 10px;
-    font-family: Roboto-Medium,sans-serif;
-    color:#aaaaaa;
-    /*text-align:center;*/
-}
+h2      {
+        font-size: 14px;
+        font-family: 'Product Sans';
+        color:#beeaff;
+        }
+
+
+body    {background-color: #090919};
 
 @font-face {
-    font-family: 'Roboto-Medium';
-    src: url("Roboto-Medium.ttf");
+    font-family: 'Product Sans Regular';
+    src: url("Product Sans Regular.ttf");
 }
