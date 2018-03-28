@@ -64,7 +64,7 @@ function onReady() {
 function draw () {
     var thisFrameTime = (thisLoop=new Date) - lastLoop;
     // for background
-    ctx.fillStyle="#141414"; // dark 
+    ctx.fillStyle="#090909"; // dark 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Grab the pixel data from the backing canvas
@@ -103,7 +103,7 @@ function draw () {
                     (indexX+1)*xRate, y*yRate);                         //end point
                 
                 ctx.lineWidth = stroke;
-                ctx.strokeStyle = 'rgba(220,220,220,'+ alpha +')';            
+                ctx.strokeStyle = 'rgba(190,234,255,'+ alpha +')';            
                 ctx.stroke();
             }
             indexX++;
@@ -115,8 +115,8 @@ function draw () {
 
 
     // printing text in canvas
-    ctx.fillStyle = "#bbbbbb";
-    ctx.font = "normal 11px Roboto-Medium";
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "normal 11px Product Sans";
     ctx.fillText(rgba + "   currente frame rate = "+(1000/frameTime).toFixed(1) + " fps" + "       type: 1-2-3-4-5", 20, canvas.height-20);
 
     // frameRate calculating
