@@ -7,8 +7,7 @@
   <!-- CSS Styling -->
   <link rel="stylesheet" href="css/stylesheet.css">
 
-  <!-- Libraries (we might have to reduce some of them later) -->
-  <script type="text/javascript" src="js/main.js"></script>
+  <!-- Libraries (we might have to reduce some of them later)
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="lib/Polyer/Polyer.min.js"></script>
   <script type="text/javascript" src="lib/Polyer/delaunay.js"></script>
@@ -16,14 +15,25 @@
   <script type="text/javascript" src="lib/Polyer/panel.js"></script>
   <script type="text/javascript" src="lib/Polyer/utils.js"></script>
   <script type="text/javascript" src="lib/Polyer/webgl.js"></script>
+  <script type="text/javascript" src="lib/Polyvia/src/GIRenderer.js"></script>
+  <script type="text/javascript" src="lib/Polyvia/src/image.js"></script>
+  <script type="text/javascript" src="lib/Polyvia/src/video.js"></script>
+  <script type="text/javascript" src="lib/Polyvia/build/video.js"></script>
+  <script type="text/javascript" src="lib/Polyvia/build/image.js"></script>
+  <script type="text/javascript" src="lib/Polyvia/build/lib.js"></script>-->
+  <script type="text/javascript" src="lib/LowPolifier/lowpoly.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
   <h1>Titel des Projektes</h1>
   <h2>Kleinerer Untertitel</h2> <br>
   <div id="videoDiv">
-    <video id="video" width="400" height="300" preload autoplay loop muted nocontrols></video><br>
+    <video id="video" width="320" height="240" preload autoplay loop muted nocontrols></video><br>
   </div>
   <div id="videoCanvasDiv">
-    <canvas id="videoCanvas" width="400" height="300"></canvas>
+    <canvas id="videoCanvas" width="320" height="240"></canvas>
+  </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <div id="lowPolyDiv">
+    <canvas id="lowPolyCanvas" width="320" height="240"></canvas>
   </div>
 </body>
