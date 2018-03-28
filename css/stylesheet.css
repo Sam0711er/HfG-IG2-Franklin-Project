@@ -1,7 +1,16 @@
-video, videoCanvas{
-    border:2px solid rgba(190, 234, 255, 0.8);
+#videoDiv{
+    outline:2px solid rgb(190, 255, 199);
     position: absolute;
+    
 }
+
+#videoCanvas{
+    border:2px solid rgb(255, 190, 206); 
+    position: absolute;
+    left: 26em;
+}
+
+
 
 h1      {       
         font-size: 23px;
@@ -16,7 +25,7 @@ h2      {
             }
 
 
-body    {background-color: #2a2a31};
+body    {background-color: #090919};
 
 
 

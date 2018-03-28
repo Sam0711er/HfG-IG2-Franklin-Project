@@ -6,9 +6,10 @@
 
   <!-- CSS Styling -->
   <link rel="stylesheet" href="css/stylesheet.css">
-  
+
   <!-- Libraries (we might have to reduce some of them later) -->
   <script type="text/javascript" src="js/main.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="lib/Polyer/Polyer.min.js"></script>
   <script type="text/javascript" src="lib/Polyer/delaunay.js"></script>
   <script type="text/javascript" src="lib/Polyer/index.js"></script>
@@ -17,8 +18,12 @@
   <script type="text/javascript" src="lib/Polyer/webgl.js"></script>
 </head>
 <body>
-  <h1>Titel des Projektes</h1> 
+  <h1>Titel des Projektes</h1>
   <h2>Kleinerer Untertitel</h2> <br>
-  <video id="video" width="600" height="450" preload autoplay loop muted nocontrols></video><br>
-  <canvas id="videoCanvas" width="600" height="450"></canvas>
+  <div id="videoDiv">
+    <video id="video" width="400" height="300" preload autoplay loop muted nocontrols></video><br>
+  </div>
+  <div id="videoCanvasDiv">
+    <canvas id="videoCanvas" width="400" height="300"></canvas>
+  </div>
 </body>
