@@ -20,7 +20,6 @@ var rgba;
 var back, backCxt;
 
 var canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
-var typeOfProcess = 10;
 
 
 
@@ -87,13 +86,12 @@ function draw () {
 
             // handles for bezier
             var xHandle = 7      //map(brightness,0,255,0,30);
-            var yHandle = map(brightness,0,255,0,10);
+            var yHandle = map(brightness,0,255,0, Math.random() * (10 - 0) + 0 );
 
 
             //ctx.fillStyle = "#cccccc";
             //ctx.strokeStyle = "#cccccc";            
 
-            if (x>0){
                 ctx.beginPath();
                 ctx.moveTo(indexX*xRate , y*yRate); //start point
 
@@ -103,9 +101,10 @@ function draw () {
                     (indexX+1)*xRate, y*yRate);                         //end point
                 
                 ctx.lineWidth = stroke;
-                ctx.strokeStyle = 'rgba(190,234,255,'+ alpha +')';            
+                //ctx.strokeStyle = 'rgba(190,234,255,'+ alpha +')';
+                ctx.strokeStyle = 'hsl('+ x +',100%,50%)';            
                 ctx.stroke();
-            }
+            
             indexX++;
         }
     }
