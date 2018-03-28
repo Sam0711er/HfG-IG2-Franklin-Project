@@ -9,6 +9,7 @@
   /*  position: absolute;*/
     left: 26em;
     float:right;
+    visibility: hidden;
 }
 
 

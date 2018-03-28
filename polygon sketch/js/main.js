@@ -48,13 +48,12 @@ function updateImageData(imgInScreen){
 }*/
 
 function lowPolify(url){
-  var config = {'EDGE_DETECT_VALUE': 5, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 2000, 'BLUR_SIZE': 2, 'EDGE_SIZE': 8, 'PIXEL_LIMIT': 120000};
+  var config = {'EDGE_DETECT_VALUE': 5, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 2000, 'BLUR_SIZE': 2, 'EDGE_SIZE': 8, 'PIXEL_LIMIT': 86400};
 
-  var l = new LowPoly(url, config).init().then((data) => { console.log("data is "+data); drawPolyToCanvas(data);});
+  var l = new LowPoly(url, config).init().then((data) => { /*console.log("data is "+data);*/ drawPolyToCanvas(data);});
 }
 
 function drawPolyToCanvas(data){
-  console.log("drawPolyToCanvas");
   var image = new Image();
   image.onload = function() {
     ptx.drawImage(this, 0, 0, polyCanvas.width, polyCanvas.height);

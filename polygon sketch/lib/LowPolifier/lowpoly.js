@@ -5,7 +5,7 @@
  */
 {
   'use strict'
-  
+
   const sourceLoadComplete = Symbol('sourceLoadComplete')
   const setSource = Symbol('setSource')
   const generate = Symbol('generate')
@@ -204,7 +204,7 @@
 
     return Delaunay
   })()
-  
+
   /**
    * LowPoly
    *
@@ -241,7 +241,7 @@
         return matrix
       })(this.EDGE_SIZE)
     }
-    
+
     /**
      * init
      *
@@ -275,12 +275,12 @@
         source.width  = width * scale | 0
         source.height = height * scale | 0
 
-        console.log('Source resizing ' + width + 'px x ' + height + 'px' + ' -> ' + source.width + 'px x ' + source.height + 'px')
+      //  console.log('Source resizing ' + width + 'px x ' + height + 'px' + ' -> ' + source.width + 'px x ' + source.height + 'px')
       }
 
       if (timeoutId) clearTimeout(timeoutId)
       generateTime = new Date().getTime()
-      console.log('Generate start...')
+    //  console.log('Generate start...')
       return new Promise((res, rej) => {
         timeoutId = setTimeout(() => {
           self[generate]().then((data) => {
@@ -332,7 +332,7 @@
         tlen--
         i++
       }
-      
+
       let delaunay = new Delaunay(width, height)
       let triangles = delaunay.insert(points).getTriangles()
 
@@ -356,15 +356,15 @@
         context.fillStyle = 'rgb(' + colorData[j] + ', ' + colorData[j + 1] + ', ' + colorData[j + 2] + ')'
         context.fill()
       }
-      
+
       let dataUrl = canvas.toDataURL('image/png')
 
       generateTime = new Date().getTime() - generateTime
-      console.log(
+    /*  console.log(
         'Generate completed ' + generateTime + 'ms, ' +
         points.length + ' points (out of ' + detectionNum + ' points, ' + (points.length / detectionNum * 100).toFixed(2) + ' %), ' +
         triangles.length + ' triangles'
-      )
+      )*/
 
       generating = false
 
