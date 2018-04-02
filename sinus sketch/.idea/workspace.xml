@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cadb86af-e20b-4335-aedf-ed60133170bd" name="Default" comment="" />
+    <ignored path="CV1.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="CV1" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="camera_picture_processing.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/camera_picture_processing.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="camera_picture_processing.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/camera_picture_processing.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2485">
+              <caret line="157" column="1" lean-forward="true" selection-start-line="157" selection-start-column="1" selection-end-line="157" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Html5" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>imgInScreen</find>
+      <find>imgData</find>
+      <find>escalaVideo</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>imgInScreen</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/CV1.html" />
+        <option value="$PROJECT_DIR$/CV1.css" />
+        <option value="$PROJECT_DIR$/CV1.js" />
+        <option value="$PROJECT_DIR$/template.css" />
+        <option value="$PROJECT_DIR$/template.html" />
+        <option value="$PROJECT_DIR$/template.js" />
+        <option value="$PROJECT_DIR$/camera_v2.css" />
+        <option value="$PROJECT_DIR$/camera_v2.html" />
+        <option value="$PROJECT_DIR$/camera_v2.js" />
+        <option value="$PROJECT_DIR$/camera_v3.html" />
+        <option value="$PROJECT_DIR$/camera_v3.js" />
+        <option value="$PROJECT_DIR$/camera_v4.html" />
+        <option value="$PROJECT_DIR$/camera_v4.js" />
+        <option value="$PROJECT_DIR$/camera_v5.html" />
+        <option value="$PROJECT_DIR$/camera_v5.js" />
+        <option value="$PROJECT_DIR$/camera_v6.html" />
+        <option value="$PROJECT_DIR$/camera_v6.js" />
+        <option value="$PROJECT_DIR$/camera_v7.html" />
+        <option value="$PROJECT_DIR$/camera_v7.js" />
+        <option value="$PROJECT_DIR$/camera_picture_processing.html" />
+        <option value="$PROJECT_DIR$/camera_picture_processing.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>false</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>false</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="86" />
+    <option name="width" value="1745" />
+    <option name="height" value="1080" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="camera_picture_processing" type="b2602c69:ProjectViewProjectNode" />
+              <item name="camera_picture_processing" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter />
+      <node-options />
+      <working-directory>$PROJECT_DIR$</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cadb86af-e20b-4335-aedf-ed60133170bd" name="Default" comment="" />
+      <created>1442085595180</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1442085595180</updated>
+      <workItem from="1474357718639" duration="892000" />
+      <workItem from="1474374781653" duration="420000" />
+      <workItem from="1505806983328" duration="1292000" />
+      <workItem from="1505822995398" duration="509000" />
+      <workItem from="1519079648133" duration="2087000" />
+      <workItem from="1519081865818" duration="718000" />
+      <workItem from="1519094314366" duration="71000" />
+      <workItem from="1519094485080" duration="227000" />
+      <workItem from="1519094826651" duration="4138000" />
+      <workItem from="1519155213621" duration="3532000" />
+      <workItem from="1519161315837" duration="1443000" />
+      <workItem from="1519173051422" duration="14257000" />
+      <workItem from="1519407722366" duration="124000" />
+      <workItem from="1519408305151" duration="139000" />
+      <workItem from="1519422364474" duration="2042000" />
+      <workItem from="1519426095245" duration="1272000" />
+      <workItem from="1519483525694" duration="9853000" />
+      <workItem from="1519511883389" duration="1115000" />
+      <workItem from="1519767483472" duration="3183000" />
+      <workItem from="1521105543020" duration="15000" />
+      <workItem from="1521108021144" duration="1325000" />
+      <workItem from="1521474646166" duration="2635000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="51679000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="86" y="0" width="1745" height="1080" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14485514" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/camera_v4.js" />
+    <entry file="file://$PROJECT_DIR$/camera_v4.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v4.js" />
+    <entry file="file://$PROJECT_DIR$/camera_v4.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v4.js" />
+    <entry file="file://$PROJECT_DIR$/camera_v4.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v4.js" />
+    <entry file="file://$PROJECT_DIR$/camera_v3.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v3.js" />
+    <entry file="file://$PROJECT_DIR$/camera_v2.js" />
+    <entry file="file://$PROJECT_DIR$/template.html" />
+    <entry file="file://$PROJECT_DIR$/template.js" />
+    <entry file="file://$PROJECT_DIR$/template.css" />
+    <entry file="file://$PROJECT_DIR$/template.html" />
+    <entry file="file://$PROJECT_DIR$/template.css" />
+    <entry file="file://$PROJECT_DIR$/template.js" />
+    <entry file="file://$PROJECT_DIR$/template.html" />
+    <entry file="file://$PROJECT_DIR$/template.js" />
+    <entry file="file://$PROJECT_DIR$/template.css" />
+    <entry file="file://$PROJECT_DIR$/template.html" />
+    <entry file="file://$PROJECT_DIR$/template.js" />
+    <entry file="file://$PROJECT_DIR$/template.css" />
+    <entry file="file://$PROJECT_DIR$/template.html" />
+    <entry file="file://$PROJECT_DIR$/template.js" />
+    <entry file="file://$PROJECT_DIR$/template.css" />
+    <entry file="file://$PROJECT_DIR$/template.html" />
+    <entry file="file://$PROJECT_DIR$/template.js" />
+    <entry file="file://$PROJECT_DIR$/template.css" />
+    <entry file="file://$PROJECT_DIR$/template.html" />
+    <entry file="file://$PROJECT_DIR$/template.js" />
+    <entry file="file://$PROJECT_DIR$/template.html" />
+    <entry file="file://$PROJECT_DIR$/template.js" />
+    <entry file="file://$PROJECT_DIR$/template.css" />
+    <entry file="file://$PROJECT_DIR$/template.css" />
+    <entry file="file://$PROJECT_DIR$/template.js" />
+    <entry file="file://$PROJECT_DIR$/template.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v2.css" />
+    <entry file="file://$PROJECT_DIR$/camera_v2.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v2.js" />
+    <entry file="file://$PROJECT_DIR$/camera_v3.js" />
+    <entry file="file://$PROJECT_DIR$/camera_v3.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v4.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v4.js" />
+    <entry file="file://$PROJECT_DIR$/camera_v5.js" />
+    <entry file="file://$PROJECT_DIR$/camera_v5.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v6.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v6.js" />
+    <entry file="file://$PROJECT_DIR$/camera_v7.html" />
+    <entry file="file://$PROJECT_DIR$/camera_v7.js" />
+    <entry file="file://$PROJECT_DIR$/camera_picture_processing.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/camera_picture_processing.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2485">
+          <caret line="157" column="1" lean-forward="true" selection-start-line="157" selection-start-column="1" selection-end-line="157" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

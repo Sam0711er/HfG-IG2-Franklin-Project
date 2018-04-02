@@ -1,0 +1,24 @@
+video, canvas{
+    outline:2px solid #beffc7;
+    position: absolute;
+}
+
+h1      {
+    font-size: 23px;
+    font-family: 'Product Sans';
+    color:#beeaff;
+    }
+
+h2      {
+        font-size: 14px;
+        font-family: 'Product Sans';
+        color:#beeaff;
+        }
+
+
+body    {background-color: #090919};
+
+@font-face {
+    font-family: 'Product Sans Regular';
+    src: url("Product Sans Regular.ttf");
+}
