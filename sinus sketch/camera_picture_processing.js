@@ -20,7 +20,6 @@ var rgba;
 var back, backCxt;
 
 var canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
-var typeOfProcess = 10;
 
 
 
@@ -40,11 +39,7 @@ function onReady() {
     // Get access to the camera!
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         // Not adding `{ audio: true }` since we only want video now
-        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-            video.src = window.URL.createObjectURL(stream); // stream
-        });
-
-        navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
             video.src = window.URL.createObjectURL(stream); // stream
         });
     }
@@ -68,7 +63,7 @@ function onReady() {
 function draw () {
     var thisFrameTime = (thisLoop=new Date) - lastLoop;
     // for background
-    ctx.fillStyle="#090909"; // dark
+    ctx.fillStyle="#090909"; // dark 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Grab the pixel data from the backing canvas
@@ -89,18 +84,14 @@ function draw () {
             var stroke = map(brightness, 0, 255, 0.5, 3);
             var alpha =  map(brightness,0,255,0.5,1);
 
-            var audioMultiplicator = 1;
-
             // handles for bezier
             var xHandle = 7      //map(brightness,0,255,0,30);
-            var yHandle = map(brightness,0,255,0,10*audioMultiplicator);
-
+            var yHandle = map(brightness,0,255,0, Math.random() * (10 - 0) + 0 );
 
 
             //ctx.fillStyle = "#cccccc";
-            //ctx.strokeStyle = "#cccccc";
+            //ctx.strokeStyle = "#cccccc";            
 
-            if (x>0){
                 ctx.beginPath();
                 ctx.moveTo(indexX*xRate , y*yRate); //start point
 
@@ -108,11 +99,12 @@ function draw () {
                     indexX*xRate + xHandle, y*yRate + yHandle,          //first bezier handle
                     (indexX+1)*xRate - xHandle, (y*yRate) - yHandle,    //second bezier handle
                     (indexX+1)*xRate, y*yRate);                         //end point
-
+                
                 ctx.lineWidth = stroke;
-                ctx.strokeStyle = 'rgba(190,234,255,'+ alpha +')';
+                //ctx.strokeStyle = 'rgba(190,234,255,'+ alpha +')';
+                ctx.strokeStyle = 'hsl('+ x +',100%,50%)';            
                 ctx.stroke();
-            }
+            
             indexX++;
         }
     }
