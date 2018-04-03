@@ -114,7 +114,7 @@ function draw () {
 
 
     // printing text in canvas
-    ctx.fillStyle = "#ffffff";
+   /*! ctx.fillStyle = "#ffffff";
     ctx.font = "normal 11px Product Sans";
     ctx.fillText(rgba + "   currente frame rate = "+(1000/frameTime).toFixed(1) + " fps" + "       type: 1-2-3-4-5", 20, canvas.height-20);
 
@@ -123,7 +123,7 @@ function draw () {
     lastLoop = thisLoop;
     var fpsOut = document.getElementById('frameRate');
     fpsOut.innerHTML = "current frame = " +frameCounter+ "   currente frame rate = "+(1000/frameTime).toFixed(1) + " fps";
-    frameCounter += 1;
+    frameCounter += 1;*/
     requestAnimFrame(draw);
 }
 
