@@ -6,6 +6,9 @@ var ctx;
 var canvas;
 var polyCanvas;
 var ptx;
+var back, backCxt;
+var currentAnimationType = "sinus";
+var canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
 
 function onReady(){
   video = document.getElementById('video');
@@ -23,14 +26,38 @@ function onReady(){
             draw();
         });
     }
+
+
+  back = document.createElement('canvas');
+    backCxt = back.getContext('2d');
+
+    videoWidth = video.width;
+    videoHeight = video.height;
+    canvasWidth = canvas.width;
+    canvasHeight = canvas.height;
+    xRate = canvasWidth/videoWidth*3;
+    yRate = canvasHeight/videoHeight;
 }
+
+
 function draw(){
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  //imgInScreen = ctx.getImageData(0,0,canvas.width, canvas.height);
+  imgInScreen = ctx.getImageData(0,0,canvas.width, canvas.height);
+
+switch (currentAnimationType){
+  case "sinus":
+       drawSinusToCanvas()
+
+  break;
+  case "polygon":
+      var imageFromStream = canvas.toDataURL();
+      lowPolify(imageFromStream);
+  break;
+}
 
 
-  var imageFromStream = canvas.toDataURL();
-  lowPolify(imageFromStream);
+  
+
 
 
   // Continuos Refresh of draw()
@@ -66,6 +93,55 @@ function drawPolyToCanvas(data){
   //ptx.drawImage(imageToDraw, 0, 0, polyCanvas.width, polyCanvas.height);
 
   //saveBase64AsFile(data, "lol")
+}
+
+
+function drawSinusToCanvas(){
+   var indexX = 0; 
+
+      for (var y = 0; y < videoHeight; y++) {
+        indexX = 0;
+        for (var x = 0; x < videoWidth; x++) {
+            var pixel = backCxt.getImageData(x, y, 1, 1);
+            var data = pixel.data;
+            rgba = 'rgba(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + (data[3] / 255) + ')';
+            var brightness = (3*data[0] +4*data[1]+data[2])>>>3;
+
+            var stroke = map(brightness, 0, 255, 0.5, 3);
+            var alpha =  map(brightness,0,255,0.5,1);
+
+            // handles for bezier
+            var xHandle = 7      //map(brightness,0,255,0,30);
+            var yHandle = map(brightness,0,255,0, Math.random() * (10 - 0) + 0 );
+
+            //ptx.fillStyle = "#cccccc";
+            //ptx.strokeStyle = "#cccccc";            
+
+                ptx.beginPath();
+                ptx.moveTo(indexX*xRate , y*yRate); //start point
+
+                ptx.bezierCurveTo(
+                    indexX*xRate + xHandle, y*yRate + yHandle,          //first bezier handle
+                    (indexX+1)*xRate - xHandle, (y*yRate) - yHandle,    //second bezier handle
+                    (indexX+1)*xRate, y*yRate);                         //end point
+                
+                ptx.lineWidth = 1;
+                ptx.strokeStyle = 'rgba(190,234,255,'+ alpha +')';
+                //ptx.strokeStyle = 'hsl('+ x +',100%,50%)';            
+                ptx.stroke();
+            
+            indexX++;
+        }
+    }
+}
+
+function map(valor, minFuente, maxFuente, minTarget, maxTarget) {
+    if (valor < minFuente) return minTarget;
+    if (valor > maxFuente) return maxTarget;
+
+    var tmp = (maxTarget-minTarget)/(maxFuente-minFuente);
+    tmp = (tmp * (valor-minFuente))+minTarget;
+    return tmp;
 }
 
 /*
