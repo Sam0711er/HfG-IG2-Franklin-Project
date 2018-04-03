@@ -7,7 +7,8 @@ var canvas;
 var polyCanvas;
 var ptx;
 var back, backCxt;
-var currentAnimationType = "sinus";
+var currentAnimationType = "polygon";
+
 var canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
 
 function onReady(){
@@ -47,7 +48,7 @@ function onReady(){
 
 function draw(){
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
+  backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
 
  // imgInScreen = ctx.getImageData(0,0,canvas.width, canvas.height);
 
@@ -86,7 +87,7 @@ function lowPolify(url){
 function drawPolyToCanvas(data){
   var image = new Image();
   image.onload = function() {
-    ptx.drawImage(this, 0, 0, polyCanvas.width, polyCanvas.height);
+  ptx.drawImage(this, 0, 0, polyCanvas.width, polyCanvas.height);
   };
 
   image.src = data;
@@ -128,19 +129,14 @@ function drawSinusToCanvas(){
             ptx.beginPath();
             ptx.moveTo(indexX*xRate , y*yRate); //start point
 
-
-
-            
             ptx.bezierCurveTo(
                     indexX*xRate + xHandle, y*yRate + yHandle,          //first bezier handle
                     (indexX+1)*xRate - xHandle, (y*yRate) - yHandle,    //second bezier handle
                     (indexX+1)*xRate, y*yRate);                         //end point
 
                 ptx.lineWidth = stroke;
-                ptx.strokeStyle = 'hsl('+ x +',100%,50%)';            
+                ptx.strokeStyle = 'hsl(0,100%,100%)';            
                 ptx.stroke(); 
-
-
 
             indexX++;
 
