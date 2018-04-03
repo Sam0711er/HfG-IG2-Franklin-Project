@@ -1,0 +1,37 @@
+#videoDiv{
+    outline:2px solid rgb(190, 255, 199);
+    position: absolute;
+
+}
+
+#videoCanvas{
+    border:2px solid rgb(255, 190, 206);
+  /*  position: absolute;*/
+    left: 26em;
+    float:right;
+    visibility: hidden;
+}
+
+
+
+h1      {
+        font-size: 23px;
+        font-family: 'Product Sans';
+        color:#beeaff;
+        }
+
+h2      {
+            font-size: 14px;
+            font-family: 'Product Sans';
+            color:#beeaff;
+            }
+
+
+body    {background-color: #090919};
+
+
+
+@font-face {
+    font-family: 'Product Sans Regular';
+    src: url("Product Sans Regular.ttf");
+}

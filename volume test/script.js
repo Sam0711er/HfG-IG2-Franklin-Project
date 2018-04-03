@@ -2,9 +2,6 @@ window.onLoad = onReady();
 var canvas;
 var ctx;
 
-
-
-
 function onReady() {
   canvas = document.getElementById('canvas');
   ctx = canvas.getContext('2d');
@@ -65,7 +62,7 @@ function setupMicrophone () {
         ctx.fillStyle="#fff"; // dark 
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle= 'rgba(' + soundVolume * 5 + ', 80 , 140 , 1)';
+        ctx.fillStyle= "hsl("+ 150 + soundVolume*2 +", 100%, 50%)";
         ctx.fillRect(0, 0, soundVolume *5 , 50 );
         
 
