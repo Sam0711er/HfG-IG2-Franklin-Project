@@ -353,8 +353,11 @@
 
         j = ((cx | 0) + (cy | 0) * width) << 2
 
-        context.fillStyle = 'rgb(' + colorData[j] + ', ' + colorData[j + 1] + ', ' + colorData[j + 2] + ')'
+      //  context.fillStyle = 'rgb(' + colorData[j] + ', ' + colorData[j + 1] + ', ' + colorData[j + 2] + ')'
         context.fill()
+
+        context.strokeStyle="#FF0000";
+        context.stroke();
       }
 
       let dataUrl = canvas.toDataURL('image/png')

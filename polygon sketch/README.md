@@ -4,7 +4,7 @@
 TBD
 
 ## Open Source Software
-[zhiyishou/Polyer](https://github.com/zhiyishou/Polyer)
+[jrainlau/LowPolifier](https://github.com/jrainlau/LowPolifier)
 
 
 ## Credit
