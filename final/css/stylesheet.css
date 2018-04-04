@@ -1,7 +1,7 @@
 #videoDiv{
     outline:2px solid rgb(190, 255, 199);
     position: absolute;
-
+    visibility: hidden;
 }
 
 #videoCanvas{
