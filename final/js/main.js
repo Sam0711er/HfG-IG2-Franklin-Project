@@ -8,9 +8,10 @@ var polyCanvas;
 var ptx;
 var back, backCxt;
 var currentAnimationType = "sinus";
-var currentPolyPercentage = 50;
 
 var canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
+
+
 
 function onReady(){
   video = document.getElementById('video');
@@ -23,13 +24,32 @@ function onReady(){
   polyCanvas.addEventListener('mousemove', pick);
 
 
+
+//  DiffCamEngine.start();
+
   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         // Not adding `{ audio: true }` since we only want video now
             navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
             video.src = window.URL.createObjectURL(stream); // stream
             console.log('Camera access granted. Setup initialized.');
             draw();
+            DiffCamEngine.stream = stream;
+            DiffCamEngine.init({
+              stream: stream,
+              captureIntervalTime: 50,
+              captureWidth: 40,
+              captureHeight: 30,
+              pixelDiffThreshold: 32,
+              scoreThreshold: 16,
+              initErrorCallback: diffCamEngineSetupError(),
+              initSuccessCallback: diffCamEngineSetupSuccess(),
+              startCompleteCallback: diffCamEngineStartCompleteCallback(),
+              captureCallback: diffCamEngineCaptureCallback
+              // etc.
+            });
+            DiffCamEngine.start();
         });
+
     }
 
 
@@ -48,18 +68,35 @@ function onReady(){
 
 }
 
+function diffCamEngineSetupError(){
+  console.log("error");
+}
+
+function diffCamEngineSetupSuccess(){
+  console.log("Success");
+}
+
+function diffCamEngineStartCompleteCallback(){
+  console.log("diffCamEngineStartCompleteCallback");
+}
+
+function diffCamEngineCaptureCallback(data){
+  console.log("diffCamEngineCaptureCallback. Data Score " + data.score);
+  updateSwitch(data.score);
+
+}
 
 function draw(){
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
 
  // imgInScreen = ctx.getImageData(0,0,canvas.width, canvas.height);
-  updateSwitch();
+
 
 
   switch (currentAnimationType){
    case "sinus":
-      ptx.fillStyle="#090909"; // dark 
+      ptx.fillStyle="#090909"; // dark
       ptx.fillRect(0, 0, canvas.width, canvas.height);
 
 
@@ -119,7 +156,7 @@ function drawPolyToCanvas(data){
 
 function drawSinusToCanvas(){
   // for background
- 
+
     backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
     imgInScreen = backCxt.getImageData(0,0, videoWidth, videoHeight);
 
@@ -159,8 +196,8 @@ function drawSinusToCanvas(){
                     (indexX+1)*xRate, y*yRate);                         //end point
 
                 ptx.lineWidth = stroke;
-                ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';            
-                ptx.stroke(); 
+                ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
+                ptx.stroke();
 
             indexX++;
 
@@ -170,18 +207,15 @@ function drawSinusToCanvas(){
 }
 
 
-function updateSwitch(){
-  var volume = Mic.getVol();
+function updateSwitch(score){
+//  var volume = Mic.getVol();
 
-  if (volume > 15){
+  if (score > 150){
     currentAnimationType = "polygon"
-    console.log("polygon");
 
   }else{
     currentAnimationType = "sinus"
-    console.log("Sinus");
   }
-  console.log(volume);
 
  // currentAnimationType
 }
@@ -279,7 +313,7 @@ function Microphone (_fft) {
           // getByteFrequencyData returns the amplitude for each frequency
           analyser.getByteFrequencyData(self.spectrum);
           self.data = adjustFreqData(self.spectrum);
-          
+
           // getByteTimeDomainData gets volumes over the sample time
           //analyser.getByteTimeDomainData(dataArray);
           self.vol = self.getRMS(self.spectrum);
