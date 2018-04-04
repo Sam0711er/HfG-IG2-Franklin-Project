@@ -134,7 +134,7 @@ function updateImageData(imgInScreen){
 }*/
 
 function lowPolify(url){
-  var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 2000, 'BLUR_SIZE': 2, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 86400};
+  var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 1500, 'BLUR_SIZE': 4, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 1000};
 
   var l = new LowPoly(url, config).init().then((data) => { /*console.log("data is "+data);*/ drawPolyToCanvas(data);});
 }
@@ -184,7 +184,7 @@ function drawSinusToCanvas(){
 
 
             var xHandle = 7
-            var yHandle = map(brightness,0,255,0, Math.random() * (soundVolume/2 - 0) + 0 );
+            var yHandle = map(brightness,0,255,0, Math.random() * (highVolume*2 - 0) + 0 );
 
 
             ptx.beginPath();
