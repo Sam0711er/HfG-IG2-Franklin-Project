@@ -7,7 +7,8 @@ var canvas;
 var polyCanvas;
 var ptx;
 var back, backCxt;
-var currentAnimationType = "polygon";
+var currentAnimationType = "sinus";
+var currentPolyPercentage = 50;
 
 var canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
 
@@ -53,9 +54,15 @@ function draw(){
   backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
 
  // imgInScreen = ctx.getImageData(0,0,canvas.width, canvas.height);
+  updateSwitch();
+
 
   switch (currentAnimationType){
    case "sinus":
+      ptx.fillStyle="#090909"; // dark 
+      ptx.fillRect(0, 0, canvas.width, canvas.height);
+
+
       drawSinusToCanvas();
 
    break;
@@ -64,6 +71,16 @@ function draw(){
       lowPolify(imageFromStream);
    break;
 }
+
+
+
+
+
+     /* drawSinusToCanvas();
+
+
+      var imageFromStream = canvas.toDataURL();
+      lowPolify(imageFromStream);*/
 
   // Continuos Refresh of draw()
   requestAnimFrame(draw);
@@ -102,9 +119,7 @@ function drawPolyToCanvas(data){
 
 function drawSinusToCanvas(){
   // for background
-    ptx.fillStyle="#090909"; // dark 
-    ptx.fillRect(0, 0, canvas.width, canvas.height);
-
+ 
     backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
     imgInScreen = backCxt.getImageData(0,0, videoWidth, videoHeight);
 
@@ -116,11 +131,11 @@ function drawSinusToCanvas(){
 
     var midsColorVolume = map(midVolume,0,100,0,30) + 170;
 
-    console.log(midsColorVolume);
+   // console.log(midsColorVolume);
 
     for (var y = 0; y < videoHeight; y++) {
       indexX = 0;
-      for (var x = videoWidth; x > 0; x--) {
+      for (var x = 0; x < videoWidth; x++) {
             var pixel = backCxt.getImageData(x, y, 1, 1);
             var data = pixel.data;
             rgba = 'rgba(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + (data[3] / 255) + ')';
@@ -155,6 +170,21 @@ function drawSinusToCanvas(){
 }
 
 
+function updateSwitch(){
+  var volume = Mic.getVol();
+
+  if (volume > 15){
+    currentAnimationType = "polygon"
+    console.log("polygon");
+
+  }else{
+    currentAnimationType = "sinus"
+    console.log("Sinus");
+  }
+  console.log(volume);
+
+ // currentAnimationType
+}
 
 
 function map(valor, minFuente, maxFuente, minTarget, maxTarget) {
