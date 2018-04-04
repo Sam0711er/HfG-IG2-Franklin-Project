@@ -12,6 +12,10 @@
     visibility: hidden;
 }
 
+#lowPolyCanvas{
+    transform: scaleX(-1);
+}
+
 
 
 h1      {

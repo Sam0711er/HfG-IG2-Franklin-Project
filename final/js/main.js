@@ -7,7 +7,7 @@ var canvas;
 var polyCanvas;
 var ptx;
 var back, backCxt;
-var currentAnimationType = "sinus";
+var currentAnimationType = "polygon";
 
 var canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
 
