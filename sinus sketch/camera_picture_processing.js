@@ -104,8 +104,8 @@ function draw () {
                     (indexX+1)*xRate, y*yRate);                         //end point
                 
                 ctx.lineWidth = stroke;
-                //ctx.strokeStyle = 'rgba(190,234,255,'+ alpha +')';
-                ctx.strokeStyle = 'hsl(0,100%,50%)';            
+                ctx.strokeStyle = 'rgba(255,255,255,'+ alpha +')';
+                //ctx.strokeStyle = 'hsl(0,100%,50%)';            
                 ctx.stroke();
             
             indexX++;
