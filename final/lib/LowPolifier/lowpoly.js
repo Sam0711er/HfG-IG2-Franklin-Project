@@ -215,7 +215,7 @@
    *
    */
   class LowPoly {
-    constructor (src, { EDGE_DETECT_VALUE, POINT_RATE, POINT_MAX_NUM, BLUR_SIZE, EDGE_SIZE, PIXEL_LIMIT, QUEUE_VALUE }) {
+    constructor (src, { EDGE_DETECT_VALUE, POINT_RATE, POINT_MAX_NUM, BLUR_SIZE, EDGE_SIZE, PIXEL_LIMIT, COLOR_VALUE }) {
       this.src = src
       this.EDGE_DETECT_VALUE = EDGE_DETECT_VALUE || 80
       this.POINT_RATE = POINT_RATE || 0.075
@@ -223,7 +223,7 @@
       this.BLUR_SIZE = BLUR_SIZE || 2
       this.EDGE_SIZE = EDGE_SIZE || 6
       this.PIXEL_LIMIT = PIXEL_LIMIT || 350000
-      this.QUEUE_VALUE = QUEUE_VALUE || 1
+      this.COLOR_VALUE = COLOR_VALUE 
 
       this.blur = ((size) => {
         let matrix = []
@@ -357,10 +357,10 @@
       //  context.fillStyle = 'rgb(' + colorData[j] + ', ' + colorData[j + 1] + ', ' + colorData[j + 2] + ')'
         context.fill()
 
-        var queueValue = this.QUEUE_VALUE;
-      //  console.log(this.QUEUE_VALUE);
+        var colorValue = this.COLOR_VALUE;
+        console.log(this.COLOR_VALUE);
 
-        context.strokeStyle="#FF0000";
+        context.strokeStyle=colorValue;
         context.stroke();
       }
 
