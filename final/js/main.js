@@ -1,15 +1,8 @@
 window.onload = onReady;
 
-var video;
-var imgInScreen;
-var ctx;
-var canvas;
-var polyCanvas;
-var ptx;
-var back, backCxt;
+var video, imgInScreen, ctx, canvas, polyCanvas, ptx, back, backCxt, canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
 var currentAnimationType = "sinus";
 
-var canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
 
 
 
@@ -22,10 +15,6 @@ function onReady(){
   ptx = polyCanvas.getContext('2d');
 
   polyCanvas.addEventListener('mousemove', pick);
-
-
-
-//  DiffCamEngine.start();
 
   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         // Not adding `{ audio: true }` since we only want video now
@@ -49,9 +38,7 @@ function onReady(){
             });
             DiffCamEngine.start();
         });
-
     }
-
 
     back = document.createElement('canvas');
     backCxt = back.getContext('2d');
@@ -62,9 +49,6 @@ function onReady(){
     canvasHeight = polyCanvas.height;
     xRate = canvasWidth/videoWidth;
     yRate = canvasHeight/videoHeight;
-
-
-
 
 }
 
@@ -83,16 +67,11 @@ function diffCamEngineStartCompleteCallback(){
 function diffCamEngineCaptureCallback(data){
   //.log("diffCamEngineCaptureCallback. Data Score " + data.score);
   updateSwitch(data.score);
-
 }
 
 function draw(){
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
-
- // imgInScreen = ctx.getImageData(0,0,canvas.width, canvas.height);
-
-
 
   switch (currentAnimationType){
    case "sinus":
@@ -107,31 +86,12 @@ function draw(){
       var imageFromStream = canvas.toDataURL();
       lowPolify(imageFromStream);
    break;
-}
-
-
-
-
-
-     /* drawSinusToCanvas();
-
-
-      var imageFromStream = canvas.toDataURL();
-      lowPolify(imageFromStream);*/
+  }
 
   // Continuos Refresh of draw()
   requestAnimFrame(draw);
 }
 
-/*var pixels = [];
-function updateImageData(imgInScreen){
-
-  for (var i = 0; i < imgInScreen.data.length; i+=4) {
-    var pixel = {r: imgInScreen.data[i], g: imgInScreen.data[i+1], b: imgInScreen.data[i+2], a: imgInScreen.data[i+3]};
-    pixels[i] = pixel;
-  }
-  //console.log(pixels);
-}*/
 
 function lowPolify(url){
   var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 1500, 'BLUR_SIZE': 4, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 1000};
@@ -148,9 +108,7 @@ function drawPolyToCanvas(data){
   image.src = data;
 
 
-
   //ptx.drawImage(imageToDraw, 0, 0, polyCanvas.width, polyCanvas.height);
-
   //saveBase64AsFile(data, "lol")
 }
 
@@ -167,8 +125,6 @@ function drawSinusToCanvas(){
     var bassVolume = Mic.getBassVol();
 
     var midsColorVolume = map(midVolume,0,100,0,30) + 170;
-
-   // console.log(midsColorVolume);
 
     for (var y = 0; y < videoHeight; y++) {
       indexX = 0;
@@ -195,20 +151,16 @@ function drawSinusToCanvas(){
                     (indexX+1)*xRate - xHandle, (y*yRate) - yHandle,    //second bezier handle
                     (indexX+1)*xRate, y*yRate);                         //end point
 
-                ptx.lineWidth = stroke;
-                ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
-                ptx.stroke();
+            ptx.lineWidth = stroke;
+            ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
+            ptx.stroke();
 
             indexX++;
-
       }
     }
-
 }
 
-
 function updateSwitch(score){
-
   if (score > 150){
     currentAnimationType = "polygon"
     setTimeout(
@@ -216,14 +168,10 @@ function updateSwitch(score){
         currentAnimationType = "sinus";
         console.log("Timeout");
       },3000);
-
   }else{
-
     // currentAnimationType = "sinus"
   }
 }
-
-
 
 function map(valor, minFuente, maxFuente, minTarget, maxTarget) {
     if (valor < minFuente) return minTarget;
@@ -244,9 +192,6 @@ function saveBase64AsFile(base64, fileName) {
     link.click();
 }
 */
-function loadAndDrawImage(){
-
-}
 
 function pick(event) {
     mouseX = event.layerX;
@@ -271,7 +216,6 @@ window.requestAnimFrame = (function(){
 
 
 function Microphone (_fft) {
-
     var FFT_SIZE = _fft || 2048;
 
     this.spectrum = new Uint8Array(FFT_SIZE/2);
@@ -298,11 +242,8 @@ function Microphone (_fft) {
       }
     }
 
-
     function startMic (context) {
-
       navigator.getUserMedia({ audio: true }, processSound, error);
-
       function processSound (stream) {
 
         // analyser extracts frequency, waveform, and other data
