@@ -75,7 +75,7 @@ var DiffCamEngine = (function() {
 		motionContext = motionCanvas.getContext('2d');
 
 		//requestWebcam();
-		console.log(stream);
+		//console.log(stream);
 	}
 
 	function requestWebcam() {
@@ -103,7 +103,7 @@ var DiffCamEngine = (function() {
 		if (!stream) {
 			throw 'Cannot start after init fail';
 		}else {
-			console.log('LOL it works have fun LOL.');
+			console.log('Capture successfully started.');
 		}
 
 		// streaming takes a moment to start

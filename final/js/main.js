@@ -50,15 +50,15 @@ function onReady(){
 }
 
 function diffCamEngineSetupError(){
-  console.log("error");
+  //console.log("error");
 }
 
 function diffCamEngineSetupSuccess(){
-  console.log("Success");
+  //console.log("Success");
 }
 
 function diffCamEngineStartCompleteCallback(){
-  console.log("diffCamEngineStartCompleteCallback");
+  //console.log("diffCamEngineStartCompleteCallback");
 }
 
 function diffCamEngineCaptureCallback(data){
@@ -173,7 +173,7 @@ function updateSwitch(score){
       function(){
         polygonQueue -= 1;
         console.log("Timeout");
-      },4000);
+      },2000);
   }else{
   }
 }
