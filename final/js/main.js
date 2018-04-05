@@ -1,10 +1,7 @@
 window.onload = onReady;
 
 var video, imgInScreen, ctx, canvas, polyCanvas, ptx, back, backCxt, canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
-var currentAnimationType = "sinus";
-
-
-
+var polygonQueue = 0;
 
 function onReady(){
   video = document.getElementById('video');
@@ -86,25 +83,15 @@ function draw(){
   croppedctx1.fill();*/
   croppedctx1.putImageData(imageData, 0, 0);
 
-  switch (currentAnimationType){
-   case "sinus":
-      ptx.fillStyle="#090909"; // dark
-      ptx.fillRect(0, 0, canvas.width, canvas.height);
 
+  if (polygonQueue > 0){
+    var croppedImageFromStream = croppedCanvas.toDataURL("image/png");
+    lowPolify(croppedImageFromStream);
+  }else{
+    ptx.fillStyle="#090909"; // dark
+    ptx.fillRect(0, 0, canvas.width, canvas.height);
 
-      drawSinusToCanvas();
-
-   break;
-   case "polygon":
-      //var imageFromStream = canvas.toDataURL();
-      //lowPolify(imageFromStream);
-
-
-
-      var croppedImageFromStream = croppedCanvas.toDataURL("image/png");
-      lowPolify(croppedImageFromStream);
-
-   break;
+    drawSinusToCanvas();
   }
 
   // Continuos Refresh of draw()
@@ -181,14 +168,13 @@ function drawSinusToCanvas(){
 
 function updateSwitch(score){
   if (score > 150){
-    currentAnimationType = "polygon"
+    polygonQueue += 1;
     setTimeout(
       function(){
-        currentAnimationType = "sinus";
+        polygonQueue -= 1;
         console.log("Timeout");
       },4000);
   }else{
-    // currentAnimationType = "sinus"
   }
 }
 
