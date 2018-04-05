@@ -29,7 +29,7 @@ function onReady(){
               captureWidth: 40,
               captureHeight: 30,
               pixelDiffThreshold: 32,
-              scoreThreshold: 16,
+              scoreThreshold: 32,
               initErrorCallback: diffCamEngineSetupError(),
               initSuccessCallback: diffCamEngineSetupSuccess(),
               startCompleteCallback: diffCamEngineStartCompleteCallback(),
@@ -47,7 +47,7 @@ function onReady(){
     videoHeight = video.height;
     canvasWidth = polyCanvas.width;
     canvasHeight = polyCanvas.height;
-    xRate = canvasWidth/videoWidth;
+    xRate = canvasWidth/videoWidth*9;
     yRate = canvasHeight/videoHeight;
 
 }
@@ -73,6 +73,19 @@ function draw(){
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
 
+  var imageData = ctx.getImageData(canvas.width/3, 0, canvas.width/3, canvas.height);
+
+
+  var croppedCanvas = document.createElement("canvas");
+  croppedCanvas.width = canvas.width/3;
+  croppedCanvas.height = canvas.height;
+
+  var croppedctx1 = croppedCanvas.getContext("2d");
+  /*croppedctx1.rect(0, 0, 100, 100);
+  croppedctx1.fillStyle = 'white';
+  croppedctx1.fill();*/
+  croppedctx1.putImageData(imageData, 0, 0);
+
   switch (currentAnimationType){
    case "sinus":
       ptx.fillStyle="#090909"; // dark
@@ -83,8 +96,14 @@ function draw(){
 
    break;
    case "polygon":
-      var imageFromStream = canvas.toDataURL();
-      lowPolify(imageFromStream);
+      //var imageFromStream = canvas.toDataURL();
+      //lowPolify(imageFromStream);
+
+
+
+      var croppedImageFromStream = croppedCanvas.toDataURL("image/png");
+      lowPolify(croppedImageFromStream);
+
    break;
   }
 
@@ -126,9 +145,9 @@ function drawSinusToCanvas(){
 
     var midsColorVolume = map(midVolume,0,100,0,30) + 170;
 
-    for (var y = 0; y < videoHeight; y++) {
+    for (var y = 0; y < videoHeight; y+=2) {
       indexX = 0;
-      for (var x = 0; x < videoWidth; x++) {
+      for (var x = videoWidth/3; x < videoWidth*2/3; x+=3) {
             var pixel = backCxt.getImageData(x, y, 1, 1);
             var data = pixel.data;
             rgba = 'rgba(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + (data[3] / 255) + ')';
@@ -167,7 +186,7 @@ function updateSwitch(score){
       function(){
         currentAnimationType = "sinus";
         console.log("Timeout");
-      },3000);
+      },4000);
   }else{
     // currentAnimationType = "sinus"
   }
