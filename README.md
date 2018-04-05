@@ -19,4 +19,4 @@ Rektor-Klaus-Straße 100</br>
 73525 Schwäbisch Gmünd
 
 
-© 2018 Sam Eckert, Joshua Bökle, Jakob Dewald, Patrick Straub
+© 2018 Sam Eckert, Joshua Bökle, Patrick Straub
