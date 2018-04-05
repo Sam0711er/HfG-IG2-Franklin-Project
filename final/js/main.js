@@ -84,9 +84,18 @@ function draw(){
   croppedctx1.putImageData(imageData, 0, 0);
 
 
+  var hueValue = 195;
+  var brightnessValue = 50;
+
   if (polygonQueue > 0){
+
+    var saturationValue = 10 * polygonQueue;
+    if (saturationValue > 100){
+      saturationValue = 100;
+    }
+
     var croppedImageFromStream = croppedCanvas.toDataURL("image/png");
-    lowPolify(croppedImageFromStream, polygonQueue);
+    lowPolify(croppedImageFromStream, 'hsl(' + hueValue + ',' + saturationValue + '%,' + brightnessValue + '%)');
   }else{
     ptx.fillStyle="#090909"; // dark
     ptx.fillRect(0, 0, canvas.width, canvas.height);
@@ -100,7 +109,7 @@ function draw(){
 
 
 function lowPolify(url,queueValue){
-  var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 1500, 'BLUR_SIZE': 4, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 1000, 'QUEUE_VALUE': queueValue};
+  var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 1500, 'BLUR_SIZE': 4, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 1000, 'COLOR_VALUE': queueValue};
 
   var l = new LowPoly(url, config).init().then((data) => { /*console.log("data is "+data);*/ drawPolyToCanvas(data);});
 }
