@@ -81,7 +81,7 @@ function diffCamEngineStartCompleteCallback(){
 }
 
 function diffCamEngineCaptureCallback(data){
-  console.log("diffCamEngineCaptureCallback. Data Score " + data.score);
+  //.log("diffCamEngineCaptureCallback. Data Score " + data.score);
   updateSwitch(data.score);
 
 }
@@ -208,17 +208,21 @@ function drawSinusToCanvas(){
 
 
 function updateSwitch(score){
-//  var volume = Mic.getVol();
 
   if (score > 150){
     currentAnimationType = "polygon"
+    setTimeout(
+      function(){
+        currentAnimationType = "sinus";
+        console.log("Timeout");
+      },3000);
 
   }else{
-    currentAnimationType = "sinus"
-  }
 
- // currentAnimationType
+    // currentAnimationType = "sinus"
+  }
 }
+
 
 
 function map(valor, minFuente, maxFuente, minTarget, maxTarget) {
