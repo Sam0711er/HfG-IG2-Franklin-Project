@@ -86,7 +86,7 @@ function draw(){
 
   if (polygonQueue > 0){
     var croppedImageFromStream = croppedCanvas.toDataURL("image/png");
-    lowPolify(croppedImageFromStream);
+    lowPolify(croppedImageFromStream, polygonQueue);
   }else{
     ptx.fillStyle="#090909"; // dark
     ptx.fillRect(0, 0, canvas.width, canvas.height);
@@ -99,8 +99,8 @@ function draw(){
 }
 
 
-function lowPolify(url){
-  var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 1500, 'BLUR_SIZE': 4, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 1000};
+function lowPolify(url,queueValue){
+  var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 1500, 'BLUR_SIZE': 4, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 1000, 'QUEUE_VALUE': queueValue};
 
   var l = new LowPoly(url, config).init().then((data) => { /*console.log("data is "+data);*/ drawPolyToCanvas(data);});
 }
