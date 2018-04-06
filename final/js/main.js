@@ -84,14 +84,22 @@ function draw(){
   croppedctx1.putImageData(imageData, 0, 0);
 
 
-  var hueValue = 195;
+  //var hueValue = 195;
   var brightnessValue = 50;
+  var saturationValue = 90;
 
   if (polygonQueue > 0){
 
-    var saturationValue = 10 * polygonQueue;
+    var saturationValue = 30 * polygonQueue;
     if (saturationValue > 100){
       saturationValue = 100;
+    }
+
+  //  if (polygonQueue > 0){  
+
+    var hueValue = 49 * polygonQueue;
+    if (hueValue > 360){
+        hueValue = 360;
     }
 
     var croppedImageFromStream = croppedCanvas.toDataURL("image/png");
