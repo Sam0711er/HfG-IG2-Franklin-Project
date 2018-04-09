@@ -11,8 +11,6 @@ function onReady(){
   ctx = canvas.getContext('2d');
   ptx = polyCanvas.getContext('2d');
 
-  polyCanvas.addEventListener('mousemove', pick);
-
   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         // Not adding `{ audio: true }` since we only want video now
             navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
@@ -80,22 +78,24 @@ function draw(){
   var croppedctx1 = croppedCanvas.getContext("2d");
   croppedctx1.putImageData(imageData, 0, 0);
 
-  //var hueValue = 195;
-  var brightnessValue = 50;
-  var saturationValue = 90;
 
   if (polygonQueue > 0){
+    // Executed when polygonQueue is bigger than 0, meaning polygons are active.
 
+    // Saturation value setter
     var saturationValue = 50 * polygonQueue;
     if (saturationValue > 100){
       saturationValue = 100;
     }
 
-
+    // Hue value setter
     var hueValue = 170 + polygonQueue*15;
     if (hueValue > 360){
         hueValue = 360;
     }
+
+    // Brightness value setter
+    var brightnessValue = 50;
 
     var croppedImageFromStream = croppedCanvas.toDataURL("image/png");
     lowPolify(croppedImageFromStream, 'hsl(' + hueValue + ',' + saturationValue + '%,' + brightnessValue + '%)');
@@ -114,7 +114,7 @@ function draw(){
 function lowPolify(url,queueValue){
   var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 1500, 'BLUR_SIZE': 4, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 1000, 'COLOR_VALUE': queueValue};
 
-  var l = new LowPoly(url, config).init().then((data) => { /*console.log("data is "+data);*/ drawPolyToCanvas(data);});
+  var l = new LowPoly(url, config).init().then((data) => {drawPolyToCanvas(data);});
 }
 
 function drawPolyToCanvas(data){
@@ -124,16 +124,11 @@ function drawPolyToCanvas(data){
   };
 
   image.src = data;
-
-
-  //ptx.drawImage(imageToDraw, 0, 0, polyCanvas.width, polyCanvas.height);
-  //saveBase64AsFile(data, "lol")
 }
 
 function drawSinusToCanvas(){
-  // for background
 
-    backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
+    backCxt.drawImage(video,0,0, videoWidth, videoHeight);
     imgInScreen = backCxt.getImageData(0,0, videoWidth, videoHeight);
 
     var indexX = 0;
@@ -170,12 +165,6 @@ function drawSinusToCanvas(){
                     (indexX+1)*xRate, y*yRate);                         //end point
 
             ptx.lineWidth = stroke;
-
-            // //gradinet tests
-            //var my_gradient=ptx.createLinearGradient(0,0,0,170);
-            // my_gradient.addColorStop(0,"hsl( 360,80%,50%)");
-            // my_gradient.addColorStop(1,"white");
-            // ptx.strokeStyle = my_gradient;
             ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
             ptx.stroke();
 
@@ -205,7 +194,9 @@ function map(valor, minFuente, maxFuente, minTarget, maxTarget) {
     return tmp;
 }
 
+
 /*
+// Debugging: Export lowPolify output
 function saveBase64AsFile(base64, fileName) {
 
     var link = document.createElement("a");
@@ -215,16 +206,6 @@ function saveBase64AsFile(base64, fileName) {
     link.click();
 }
 */
-
-function pick(event) {
-    mouseX = event.layerX;
-    mouseY = event.layerY;
-
-    var pixel = ptx.getImageData(mouseX, mouseY, 1, 1);
-    var data = pixel.data;
-    rgba = 'rgba(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + (data[3] / 255) + ')';
-    //console.log(rgba);
-}
 
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame       ||
@@ -307,41 +288,6 @@ function Microphone (_fft) {
     ///////////////////////////////////////////////
     ////////////// SOUND UTILITIES  //////////////
     /////////////////////////////////////////////
-    this.mapSound = function(_me, _total, _min, _max){
-
-      if (self.spectrum.length > 0) {
-
-        var min = _min || 0;
-        var max = _max || 100;
-        //actual new freq
-        var new_freq = Math.floor(_me /_total * self.data.length);
-        //console.log(self.spectrum[new_freq]);
-        // map the volumes to a useful number
-        return map(self.data[new_freq], 0, self.peak_volume, min, max);
-      } else {
-        return 0;
-      }
-
-    }
-
-    this.mapRawSound = function(_me, _total, _min, _max){
-
-      if (self.spectrum.length > 0) {
-
-        var min = _min || 0;
-        var max = _max || 100;
-        //actual new freq
-        var new_freq = Math.floor(_me /_total * (self.spectrum.length)/2);
-        //console.log(self.spectrum[new_freq]);
-        // map the volumes to a useful number
-        return map(self.spectrum[new_freq], 0, self.peak_volume, min, max);
-      } else {
-        return 0;
-      }
-
-    }
-
-
     this.getVol = function(){
 
       // map total volume to 100 for convenience
@@ -472,34 +418,7 @@ function mapFreq(i){
   return newFreqs;
 }
 
-
-  this.matchNote = function (freq) {
-    var closest = "A#1"; // Default closest note
-    var closestFreq = 58.2705;
-    for (var key in notes) { // Iterates through note look-up table
-        // If the current note in the table is closer to the given
-        // frequency than the current "closest" note, replace the
-        // "closest" note.
-        if (Math.abs(notes[key] - freq) <= Math.abs(notes[closest] -
-                freq)) {
-            closest = key;
-            closestFreq = notes[key];
-        }
-        // Stop searching once the current note in the table is of higher
-        // frequency than the given frequency.
-        if (notes[key] > freq) {
-            break;
-        }
-    }
-
-    return [closest, closestFreq];
-}
-
-
   return this;
-
-  };
-
-
+};
 
 var Mic = new Microphone();
