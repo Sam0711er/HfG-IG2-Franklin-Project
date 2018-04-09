@@ -78,11 +78,7 @@ function draw(){
   croppedCanvas.height = canvas.height;
 
   var croppedctx1 = croppedCanvas.getContext("2d");
-  /*croppedctx1.rect(0, 0, 100, 100);
-  croppedctx1.fillStyle = 'white';
-  croppedctx1.fill();*/
   croppedctx1.putImageData(imageData, 0, 0);
-
 
   //var hueValue = 195;
   var brightnessValue = 50;
@@ -176,11 +172,11 @@ function drawSinusToCanvas(){
             ptx.lineWidth = stroke;
 
             // //gradinet tests
-            //var my_gradient=ptx.createLinearGradient(0,0,0,170);            
+            //var my_gradient=ptx.createLinearGradient(0,0,0,170);
             // my_gradient.addColorStop(0,"hsl( 360,80%,50%)");
             // my_gradient.addColorStop(1,"white");
-            // ptx.strokeStyle = my_gradient;   
-            ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';           
+            // ptx.strokeStyle = my_gradient;
+            ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
             ptx.stroke();
 
             indexX++;
