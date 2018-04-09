@@ -90,14 +90,13 @@ function draw(){
 
   if (polygonQueue > 0){
 
-    var saturationValue = 30 * polygonQueue;
+    var saturationValue = 50 * polygonQueue;
     if (saturationValue > 100){
       saturationValue = 100;
     }
 
-  //  if (polygonQueue > 0){  
 
-    var hueValue = 49 * polygonQueue;
+    var hueValue = 170 + polygonQueue*15;
     if (hueValue > 360){
         hueValue = 360;
     }
