@@ -1,17 +1,7 @@
 window.onload = onReady;
 
-var video;
-var imgInScreen;
-var ctx;
-var canvas;
-var polyCanvas;
-var ptx;
-var back, backCxt;
-var currentAnimationType = "sinus";
-
-var canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
-
-
+var video, imgInScreen, ctx, canvas, polyCanvas, ptx, back, backCxt, canvasHeight, canvasWidth, videoHeight, videoWidth, xRate, yRate;
+var polygonQueue = 0;
 
 function onReady(){
   video = document.getElementById('video');
@@ -21,14 +11,8 @@ function onReady(){
   ctx = canvas.getContext('2d');
   ptx = polyCanvas.getContext('2d');
 
-  polyCanvas.addEventListener('mousemove', pick);
-
-
-
-//  DiffCamEngine.start();
-
   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Not adding `{ audio: true }` since we only want video now
+        // Not adding `{ audio: true }` since we use Microphone() for audio
             navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
             video.src = window.URL.createObjectURL(stream); // stream
             console.log('Camera access granted. Setup initialized.');
@@ -40,19 +24,14 @@ function onReady(){
               captureWidth: 40,
               captureHeight: 30,
               pixelDiffThreshold: 32,
-              scoreThreshold: 16,
-              initErrorCallback: diffCamEngineSetupError(),
-              initSuccessCallback: diffCamEngineSetupSuccess(),
-              startCompleteCallback: diffCamEngineStartCompleteCallback(),
-              captureCallback: diffCamEngineCaptureCallback
-              // etc.
+              scoreThreshold: 32,
+              captureCallback: updateQueue
             });
             DiffCamEngine.start();
         });
-
     }
 
-
+    // Back canvas, supporting camera data generation
     back = document.createElement('canvas');
     backCxt = back.getContext('2d');
 
@@ -60,177 +39,146 @@ function onReady(){
     videoHeight = video.height;
     canvasWidth = polyCanvas.width;
     canvasHeight = polyCanvas.height;
-    xRate = canvasWidth/videoWidth;
+    xRate = canvasWidth/videoWidth*9;
     yRate = canvasHeight/videoHeight;
-
-
-
-
-}
-
-function diffCamEngineSetupError(){
-  console.log("error");
-}
-
-function diffCamEngineSetupSuccess(){
-  console.log("Success");
-}
-
-function diffCamEngineStartCompleteCallback(){
-  console.log("diffCamEngineStartCompleteCallback");
-}
-
-function diffCamEngineCaptureCallback(data){
-  console.log("diffCamEngineCaptureCallback. Data Score " + data.score);
-  updateSwitch(data.score);
-
 }
 
 function draw(){
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
+  backCxt.drawImage(video,0,0, videoWidth, videoHeight); // For camera background use
 
- // imgInScreen = ctx.getImageData(0,0,canvas.width, canvas.height);
+  // Get image data of main camera context
+  var imageData = ctx.getImageData(canvas.width/3, 0, canvas.width/3, canvas.height);
 
+  // Supporting canvas for cropping
+  var croppedCanvas = document.createElement("canvas");
+  croppedCanvas.width = canvas.width/3;
+  croppedCanvas.height = canvas.height;
 
+  // Supporting canvas
+  var croppedctx1 = croppedCanvas.getContext("2d");
+  croppedctx1.putImageData(imageData, 0, 0);
 
-  switch (currentAnimationType){
-   case "sinus":
-      ptx.fillStyle="#090909"; // dark
-      ptx.fillRect(0, 0, canvas.width, canvas.height);
+  if (polygonQueue > 0){
+    // Executed when polygonQueue is bigger than 0, meaning polygons are active.
 
+    // Saturation value setter
+    var saturationValue = 50 * polygonQueue;
+    if (saturationValue > 100){
+      saturationValue = 100;
+    }
 
-      drawSinusToCanvas();
+    // Hue value setter
+    var hueValue = 170 + polygonQueue*15;
+    if (hueValue > 360){
+        hueValue = 360;
+    }
 
-   break;
-   case "polygon":
-      var imageFromStream = canvas.toDataURL();
-      lowPolify(imageFromStream);
-   break;
-}
+    // Brightness value setter
+    var brightnessValue = 50;
 
+    // Stream image cropper
+    var croppedImageFromStream = croppedCanvas.toDataURL("image/png");
+    lowPolify(croppedImageFromStream, 'hsl(' + hueValue + ',' + saturationValue + '%,' + brightnessValue + '%)');
+  }else{
+    // Executed when polygonQueue is 0, meaning sinus is active.
 
+    ptx.fillStyle="#090909";
+    ptx.fillRect(0, 0, canvas.width, canvas.height);
 
-
-
-     /* drawSinusToCanvas();
-
-
-      var imageFromStream = canvas.toDataURL();
-      lowPolify(imageFromStream);*/
+    drawSinusToCanvas();
+  }
 
   // Continuos Refresh of draw()
   requestAnimFrame(draw);
 }
 
-/*var pixels = [];
-function updateImageData(imgInScreen){
+// Polification, access LowPolifier library
+function lowPolify(url,queueValue){
+  var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 1500, 'BLUR_SIZE': 4, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 1000, 'COLOR_VALUE': queueValue};
 
-  for (var i = 0; i < imgInScreen.data.length; i+=4) {
-    var pixel = {r: imgInScreen.data[i], g: imgInScreen.data[i+1], b: imgInScreen.data[i+2], a: imgInScreen.data[i+3]};
-    pixels[i] = pixel;
-  }
-  //console.log(pixels);
-}*/
-
-function lowPolify(url){
-  var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 1500, 'BLUR_SIZE': 4, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 1000};
-
-  var l = new LowPoly(url, config).init().then((data) => { /*console.log("data is "+data);*/ drawPolyToCanvas(data);});
+  var l = new LowPoly(url, config).init().then((data) => {drawPolyToCanvas(data);});
 }
 
+// Add lowPolify to canvas
 function drawPolyToCanvas(data){
   var image = new Image();
   image.onload = function() {
-  ptx.drawImage(this, 0, 0, polyCanvas.width, polyCanvas.height);
+    ptx.drawImage(this, 0, 0, polyCanvas.width, polyCanvas.height);
   };
 
   image.src = data;
-
-
-
-  //ptx.drawImage(imageToDraw, 0, 0, polyCanvas.width, polyCanvas.height);
-
-  //saveBase64AsFile(data, "lol")
 }
 
+// Add sinus to canvas
 function drawSinusToCanvas(){
-  // for background
+  backCxt.drawImage(video,0,0, videoWidth, videoHeight);
+  imgInScreen = backCxt.getImageData(0,0, videoWidth, videoHeight);
 
-    backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
-    imgInScreen = backCxt.getImageData(0,0, videoWidth, videoHeight);
+  var indexX = 0;
+  var midVolume = Mic.getMidsVol();
+  var midsColorVolume = map(midVolume,0,100,0,30) + 170;
 
-    var indexX = 0;
-    var soundVolume = Mic.getVol();
-    var highVolume = Mic.getHighsVol();
-    var midVolume = Mic.getMidsVol();
-    var bassVolume = Mic.getBassVol();
+  // -- Grid & Bezier creation
+  // Vertical looping
+  for (var y = 0; y < videoHeight; y+=2) {
+    indexX = 0;
 
-    var midsColorVolume = map(midVolume,0,100,0,30) + 170;
+    // Horizontal looping
+    for (var x = videoWidth/3; x < videoWidth*2/3; x+=3) {
+      var pixel = backCxt.getImageData(x, y, 1, 1);
+      var data = pixel.data;
+      rgba = 'rgba(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + (data[3] / 255) + ')';
 
-   // console.log(midsColorVolume);
+      var brightness = (3*data[0] +4*data[1]+data[2])>>>3;
 
-    for (var y = 0; y < videoHeight; y++) {
-      indexX = 0;
-      for (var x = 0; x < videoWidth; x++) {
-            var pixel = backCxt.getImageData(x, y, 1, 1);
-            var data = pixel.data;
-            rgba = 'rgba(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + (data[3] / 255) + ')';
+      var stroke = map(brightness, 0, 255, 0.2, 1.5);
+      var alpha =  map(brightness,0,255,0.5,1);
 
-            var brightness = (3*data[0] +4*data[1]+data[2])>>>3;
+      var xHandle = 7;
+      var yHandle = map(brightness,0,255,0, midVolume);
 
-            var stroke = map(brightness, 0, 255, 0.5, 3);
-            var alpha =  map(brightness,0,255,0.5,1);
+      // Sinus Bezier Path drawing
+      ptx.beginPath();
+      ptx.moveTo(indexX*xRate , y*yRate); //start point
+      ptx.bezierCurveTo(
+        indexX*xRate + xHandle, y*yRate + yHandle,          //first bezier handle
+        (indexX+1)*xRate - xHandle, (y*yRate) - yHandle,    //second bezier handle
+        (indexX+1)*xRate, y*yRate);                         //end point
+      ptx.lineWidth = stroke;
+      ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
+      ptx.stroke();
 
-
-            var xHandle = 7
-            var yHandle = map(brightness,0,255,0, Math.random() * (highVolume*2 - 0) + 0 );
-
-
-            ptx.beginPath();
-            ptx.moveTo(indexX*xRate , y*yRate); //start point
-
-            ptx.bezierCurveTo(
-                    indexX*xRate + xHandle, y*yRate + yHandle,          //first bezier handle
-                    (indexX+1)*xRate - xHandle, (y*yRate) - yHandle,    //second bezier handle
-                    (indexX+1)*xRate, y*yRate);                         //end point
-
-                ptx.lineWidth = stroke;
-                ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
-                ptx.stroke();
-
-            indexX++;
-
-      }
+      indexX++;
     }
-
-}
-
-
-function updateSwitch(score){
-//  var volume = Mic.getVol();
-
-  if (score > 150){
-    currentAnimationType = "polygon"
-
-  }else{
-    currentAnimationType = "sinus"
   }
-
- // currentAnimationType
 }
 
+// Check if motion score threshold is passed, update polygonQueue
+function updateQueue(data){
+  if (data.score > 150){
+    polygonQueue += 1;
+    setTimeout(
+      function(){
+        polygonQueue -= 1;
+        console.log("Timeout");
+      },2000);
+  }
+}
 
-function map(valor, minFuente, maxFuente, minTarget, maxTarget) {
-    if (valor < minFuente) return minTarget;
-    if (valor > maxFuente) return maxTarget;
+// Mapping Tool
+function map(value, minSource, maxSource, minTarget, maxTarget) {
+    if (value < minSource) return minTarget;
+    if (value > maxSource) return maxTarget;
 
-    var tmp = (maxTarget-minTarget)/(maxFuente-minFuente);
-    tmp = (tmp * (valor-minFuente))+minTarget;
+    var tmp = (maxTarget-minTarget)/(maxSource-minSource);
+    tmp = (tmp * (value-minSource))+minTarget;
     return tmp;
 }
 
+
 /*
+// Debugging: Export lowPolify output
 function saveBase64AsFile(base64, fileName) {
 
     var link = document.createElement("a");
@@ -240,20 +188,8 @@ function saveBase64AsFile(base64, fileName) {
     link.click();
 }
 */
-function loadAndDrawImage(){
 
-}
-
-function pick(event) {
-    mouseX = event.layerX;
-    mouseY = event.layerY;
-
-    var pixel = ptx.getImageData(mouseX, mouseY, 1, 1);
-    var data = pixel.data;
-    rgba = 'rgba(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + (data[3] / 255) + ')';
-    //console.log(rgba);
-}
-
+// Continuos Refresh
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame       ||
         window.webkitRequestAnimationFrame ||
@@ -265,9 +201,8 @@ window.requestAnimFrame = (function(){
         };
 })();
 
-
+// Microphone setup
 function Microphone (_fft) {
-
     var FFT_SIZE = _fft || 2048;
 
     this.spectrum = new Uint8Array(FFT_SIZE/2);
@@ -294,11 +229,8 @@ function Microphone (_fft) {
       }
     }
 
-
     function startMic (context) {
-
       navigator.getUserMedia({ audio: true }, processSound, error);
-
       function processSound (stream) {
 
         // analyser extracts frequency, waveform, and other data
@@ -339,49 +271,6 @@ function Microphone (_fft) {
     ///////////////////////////////////////////////
     ////////////// SOUND UTILITIES  //////////////
     /////////////////////////////////////////////
-    this.mapSound = function(_me, _total, _min, _max){
-
-      if (self.spectrum.length > 0) {
-
-        var min = _min || 0;
-        var max = _max || 100;
-        //actual new freq
-        var new_freq = Math.floor(_me /_total * self.data.length);
-        //console.log(self.spectrum[new_freq]);
-        // map the volumes to a useful number
-        return map(self.data[new_freq], 0, self.peak_volume, min, max);
-      } else {
-        return 0;
-      }
-
-    }
-
-    this.mapRawSound = function(_me, _total, _min, _max){
-
-      if (self.spectrum.length > 0) {
-
-        var min = _min || 0;
-        var max = _max || 100;
-        //actual new freq
-        var new_freq = Math.floor(_me /_total * (self.spectrum.length)/2);
-        //console.log(self.spectrum[new_freq]);
-        // map the volumes to a useful number
-        return map(self.spectrum[new_freq], 0, self.peak_volume, min, max);
-      } else {
-        return 0;
-      }
-
-    }
-
-
-    this.getVol = function(){
-
-      // map total volume to 100 for convenience
-      self.volume = map(self.vol, 0, self.peak_volume, 0, 100);
-      return self.volume;
-    }
-
-    this.getVolume = function() { return this.getVol();}
 
     //A more accurate way to get overall volume
     this.getRMS = function (spectrum) {
@@ -431,40 +320,12 @@ function mapFreq(i){
     return {bass: bass, mids: mids, highs: highs}
   }
 
-
-  this.getBass = function(){
-          return this.getMix().bass;
-    }
-
-  this.getMids = function(){
-        return this.getMix().mids;
-  }
-
-  this.getHighs = function(){
-        return this.getMix().highs;
-  }
-
-  this.getHighsVol = function(_min, _max){
-    var min = _min || 0;
-    var max = _max || 100;
-    var v = map(this.getRMS(this.getMix().highs), 0, self.peak_volume, min, max);
-    return v;
-  }
-
   this.getMidsVol = function(_min, _max){
     var min = _min || 0;
     var max = _max || 100;
     var v = map(this.getRMS(this.getMix().mids), 0, self.peak_volume, min, max);
     return v;
   }
-
-  this.getBassVol = function(_min, _max){
-    var min = _min || 0;
-    var max = _max || 100;
-    var v = map(this.getRMS(this.getMix().bass), 0, self.peak_volume, min, max);
-    return v;
-  }
-
 
   function adjustFreqData(frequencyData, ammt) {
     // get frequency data, remove obsolete
@@ -504,34 +365,7 @@ function mapFreq(i){
   return newFreqs;
 }
 
-
-  this.matchNote = function (freq) {
-    var closest = "A#1"; // Default closest note
-    var closestFreq = 58.2705;
-    for (var key in notes) { // Iterates through note look-up table
-        // If the current note in the table is closer to the given
-        // frequency than the current "closest" note, replace the
-        // "closest" note.
-        if (Math.abs(notes[key] - freq) <= Math.abs(notes[closest] -
-                freq)) {
-            closest = key;
-            closestFreq = notes[key];
-        }
-        // Stop searching once the current note in the table is of higher
-        // frequency than the given frequency.
-        if (notes[key] > freq) {
-            break;
-        }
-    }
-
-    return [closest, closestFreq];
-}
-
-
   return this;
-
-  };
-
-
+};
 
 var Mic = new Microphone();
