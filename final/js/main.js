@@ -31,6 +31,7 @@ function onReady(){
         });
     }
 
+    // Back canvas, supporting camera data generation
     back = document.createElement('canvas');
     backCxt = back.getContext('2d');
 
@@ -44,7 +45,7 @@ function onReady(){
 
 function draw(){
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
+  backCxt.drawImage(video,0,0, videoWidth, videoHeight); // For camera background use
 
   // Get image data of main camera context
   var imageData = ctx.getImageData(canvas.width/3, 0, canvas.width/3, canvas.height);
@@ -76,10 +77,13 @@ function draw(){
     // Brightness value setter
     var brightnessValue = 50;
 
+    // Stream image cropper
     var croppedImageFromStream = croppedCanvas.toDataURL("image/png");
     lowPolify(croppedImageFromStream, 'hsl(' + hueValue + ',' + saturationValue + '%,' + brightnessValue + '%)');
   }else{
-    ptx.fillStyle="#090909"; // dark
+    // Executed when polygonQueue is 0, meaning sinus is active.
+
+    ptx.fillStyle="#090909";
     ptx.fillRect(0, 0, canvas.width, canvas.height);
 
     drawSinusToCanvas();
@@ -100,7 +104,7 @@ function lowPolify(url,queueValue){
 function drawPolyToCanvas(data){
   var image = new Image();
   image.onload = function() {
-  ptx.drawImage(this, 0, 0, polyCanvas.width, polyCanvas.height);
+    ptx.drawImage(this, 0, 0, polyCanvas.width, polyCanvas.height);
   };
 
   image.src = data;
@@ -108,46 +112,49 @@ function drawPolyToCanvas(data){
 
 // Add sinus to canvas
 function drawSinusToCanvas(){
+  backCxt.drawImage(video,0,0, videoWidth, videoHeight);
+  imgInScreen = backCxt.getImageData(0,0, videoWidth, videoHeight);
 
-    backCxt.drawImage(video,0,0, videoWidth, videoHeight);
-    imgInScreen = backCxt.getImageData(0,0, videoWidth, videoHeight);
+  var indexX = 0;
+  var midVolume = Mic.getMidsVol();
+  var midsColorVolume = map(midVolume,0,100,0,30) + 170;
 
-    var indexX = 0;
-    var midVolume = Mic.getMidsVol();
-    var midsColorVolume = map(midVolume,0,100,0,30) + 170;
+  // -- Grid & Bezier creation
+  // Vertical looping
+  for (var y = 0; y < videoHeight; y+=2) {
+    indexX = 0;
 
-    for (var y = 0; y < videoHeight; y+=2) {
-      indexX = 0;
-      for (var x = videoWidth/3; x < videoWidth*2/3; x+=3) {
-            var pixel = backCxt.getImageData(x, y, 1, 1);
-            var data = pixel.data;
-            rgba = 'rgba(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + (data[3] / 255) + ')';
+    // Horizontal looping
+    for (var x = videoWidth/3; x < videoWidth*2/3; x+=3) {
+      var pixel = backCxt.getImageData(x, y, 1, 1);
+      var data = pixel.data;
+      rgba = 'rgba(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + (data[3] / 255) + ')';
 
-            var brightness = (3*data[0] +4*data[1]+data[2])>>>3;
+      var brightness = (3*data[0] +4*data[1]+data[2])>>>3;
 
-            var stroke = map(brightness, 0, 255, 0.2, 1.5);
-            var alpha =  map(brightness,0,255,0.5,1);
+      var stroke = map(brightness, 0, 255, 0.2, 1.5);
+      var alpha =  map(brightness,0,255,0.5,1);
 
-            var xHandle = 7;
-            var yHandle = map(brightness,0,255,0, midVolume);
+      var xHandle = 7;
+      var yHandle = map(brightness,0,255,0, midVolume);
 
-            // Sinus Bezier Path drawing
-            ptx.beginPath();
-            ptx.moveTo(indexX*xRate , y*yRate); //start point
-            ptx.bezierCurveTo(
-                    indexX*xRate + xHandle, y*yRate + yHandle,          //first bezier handle
-                    (indexX+1)*xRate - xHandle, (y*yRate) - yHandle,    //second bezier handle
-                    (indexX+1)*xRate, y*yRate);                         //end point
-            ptx.lineWidth = stroke;
-            ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
-            ptx.stroke();
+      // Sinus Bezier Path drawing
+      ptx.beginPath();
+      ptx.moveTo(indexX*xRate , y*yRate); //start point
+      ptx.bezierCurveTo(
+        indexX*xRate + xHandle, y*yRate + yHandle,          //first bezier handle
+        (indexX+1)*xRate - xHandle, (y*yRate) - yHandle,    //second bezier handle
+        (indexX+1)*xRate, y*yRate);                         //end point
+      ptx.lineWidth = stroke;
+      ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
+      ptx.stroke();
 
-            indexX++;
-      }
+      indexX++;
     }
+  }
 }
 
-
+// Check if motion score threshold is passed, update polygonQueue
 function updateQueue(data){
   if (data.score > 150){
     polygonQueue += 1;
@@ -159,7 +166,7 @@ function updateQueue(data){
   }
 }
 
-// Mapping
+// Mapping Tool
 function map(value, minSource, maxSource, minTarget, maxTarget) {
     if (value < minSource) return minTarget;
     if (value > maxSource) return maxTarget;
@@ -182,6 +189,7 @@ function saveBase64AsFile(base64, fileName) {
 }
 */
 
+// Continuos Refresh
 window.requestAnimFrame = (function(){
     return  window.requestAnimationFrame       ||
         window.webkitRequestAnimationFrame ||
@@ -193,7 +201,7 @@ window.requestAnimFrame = (function(){
         };
 })();
 
-
+// Microphone setup
 function Microphone (_fft) {
     var FFT_SIZE = _fft || 2048;
 
