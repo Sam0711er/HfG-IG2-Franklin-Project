@@ -12,7 +12,7 @@ function onReady(){
   ptx = polyCanvas.getContext('2d');
 
   if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Not adding `{ audio: true }` since we only want video now
+        // Not adding `{ audio: true }` since we use Microphone() for audio
             navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
             video.src = window.URL.createObjectURL(stream); // stream
             console.log('Camera access granted. Setup initialized.');
@@ -25,11 +25,7 @@ function onReady(){
               captureHeight: 30,
               pixelDiffThreshold: 32,
               scoreThreshold: 32,
-              initErrorCallback: diffCamEngineSetupError(),
-              initSuccessCallback: diffCamEngineSetupSuccess(),
-              startCompleteCallback: diffCamEngineStartCompleteCallback(),
-              captureCallback: diffCamEngineCaptureCallback
-              // etc.
+              captureCallback: updateQueue
             });
             DiffCamEngine.start();
         });
@@ -44,37 +40,21 @@ function onReady(){
     canvasHeight = polyCanvas.height;
     xRate = canvasWidth/videoWidth*9;
     yRate = canvasHeight/videoHeight;
-
-}
-
-function diffCamEngineSetupError(){
-  //console.log("error");
-}
-
-function diffCamEngineSetupSuccess(){
-  //console.log("Success");
-}
-
-function diffCamEngineStartCompleteCallback(){
-  //console.log("diffCamEngineStartCompleteCallback");
-}
-
-function diffCamEngineCaptureCallback(data){
-  //.log("diffCamEngineCaptureCallback. Data Score " + data.score);
-  updateQueue(data.score);
 }
 
 function draw(){
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   backCxt.drawImage(video,0,0, videoWidth, videoHeight); // to use camera als background
 
+  // Get image data of main camera context
   var imageData = ctx.getImageData(canvas.width/3, 0, canvas.width/3, canvas.height);
 
-
+  // Supporting canvas for cropping
   var croppedCanvas = document.createElement("canvas");
   croppedCanvas.width = canvas.width/3;
   croppedCanvas.height = canvas.height;
 
+  // Supporting canvas
   var croppedctx1 = croppedCanvas.getContext("2d");
   croppedctx1.putImageData(imageData, 0, 0);
 
@@ -168,8 +148,8 @@ function drawSinusToCanvas(){
 }
 
 
-function updateQueue(score){
-  if (score > 150){
+function updateQueue(data){
+  if (data.score > 150){
     polygonQueue += 1;
     setTimeout(
       function(){
