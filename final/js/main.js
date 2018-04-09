@@ -158,12 +158,12 @@ function drawSinusToCanvas(){
 
             var brightness = (3*data[0] +4*data[1]+data[2])>>>3;
 
-            var stroke = map(brightness, 0, 255, 0.5, 3);
+            var stroke = map(brightness, 0, 255, 0.2, 1.5);
             var alpha =  map(brightness,0,255,0.5,1);
 
 
-            var xHandle = 7
-            var yHandle = map(brightness,0,255,0, Math.random() * (highVolume*2 - 0) + 0 );
+            var xHandle = 7;
+            var yHandle = map(brightness,0,255,0, soundVolume);
 
 
             ptx.beginPath();
@@ -175,7 +175,13 @@ function drawSinusToCanvas(){
                     (indexX+1)*xRate, y*yRate);                         //end point
 
             ptx.lineWidth = stroke;
-            ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
+
+            // //gradinet tests
+            //var my_gradient=ptx.createLinearGradient(0,0,0,170);            
+            // my_gradient.addColorStop(0,"hsl( 360,80%,50%)");
+            // my_gradient.addColorStop(1,"white");
+            // ptx.strokeStyle = my_gradient;   
+            ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';           
             ptx.stroke();
 
             indexX++;
