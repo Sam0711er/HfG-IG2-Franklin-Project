@@ -358,7 +358,7 @@
         context.fill()
 
         var colorValue = this.COLOR_VALUE;
-        console.log(this.COLOR_VALUE);
+        //console.log(this.COLOR_VALUE);
 
         context.strokeStyle=colorValue;
         context.stroke();
