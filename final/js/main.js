@@ -61,7 +61,7 @@ function diffCamEngineStartCompleteCallback(){
 
 function diffCamEngineCaptureCallback(data){
   //.log("diffCamEngineCaptureCallback. Data Score " + data.score);
-  updateSwitch(data.score);
+  updateQueue(data.score);
 }
 
 function draw(){
@@ -77,7 +77,6 @@ function draw(){
 
   var croppedctx1 = croppedCanvas.getContext("2d");
   croppedctx1.putImageData(imageData, 0, 0);
-
 
   if (polygonQueue > 0){
     // Executed when polygonQueue is bigger than 0, meaning polygons are active.
@@ -110,13 +109,14 @@ function draw(){
   requestAnimFrame(draw);
 }
 
-
+// Polification, access LowPolifier library
 function lowPolify(url,queueValue){
   var config = {'EDGE_DETECT_VALUE': 50, 'POINT_RATE': 0.075, 'POINT_MAX_NUM': 1500, 'BLUR_SIZE': 4, 'EDGE_SIZE': 3, 'PIXEL_LIMIT': 1000, 'COLOR_VALUE': queueValue};
 
   var l = new LowPoly(url, config).init().then((data) => {drawPolyToCanvas(data);});
 }
 
+// Add lowPolify to canvas
 function drawPolyToCanvas(data){
   var image = new Image();
   image.onload = function() {
@@ -126,17 +126,14 @@ function drawPolyToCanvas(data){
   image.src = data;
 }
 
+// Add sinus to canvas
 function drawSinusToCanvas(){
 
     backCxt.drawImage(video,0,0, videoWidth, videoHeight);
     imgInScreen = backCxt.getImageData(0,0, videoWidth, videoHeight);
 
     var indexX = 0;
-    var soundVolume = Mic.getVol();
-    var highVolume = Mic.getHighsVol();
     var midVolume = Mic.getMidsVol();
-    var bassVolume = Mic.getBassVol();
-
     var midsColorVolume = map(midVolume,0,100,0,30) + 170;
 
     for (var y = 0; y < videoHeight; y+=2) {
@@ -151,19 +148,16 @@ function drawSinusToCanvas(){
             var stroke = map(brightness, 0, 255, 0.2, 1.5);
             var alpha =  map(brightness,0,255,0.5,1);
 
-
             var xHandle = 7;
-            var yHandle = map(brightness,0,255,0, soundVolume);
+            var yHandle = map(brightness,0,255,0, midVolume);
 
-
+            // Sinus Bezier Path drawing
             ptx.beginPath();
             ptx.moveTo(indexX*xRate , y*yRate); //start point
-
             ptx.bezierCurveTo(
                     indexX*xRate + xHandle, y*yRate + yHandle,          //first bezier handle
                     (indexX+1)*xRate - xHandle, (y*yRate) - yHandle,    //second bezier handle
                     (indexX+1)*xRate, y*yRate);                         //end point
-
             ptx.lineWidth = stroke;
             ptx.strokeStyle = 'hsl( '+ midsColorVolume +',80%,50%)';
             ptx.stroke();
@@ -173,7 +167,8 @@ function drawSinusToCanvas(){
     }
 }
 
-function updateSwitch(score){
+
+function updateQueue(score){
   if (score > 150){
     polygonQueue += 1;
     setTimeout(
@@ -181,16 +176,16 @@ function updateSwitch(score){
         polygonQueue -= 1;
         console.log("Timeout");
       },2000);
-  }else{
   }
 }
 
-function map(valor, minFuente, maxFuente, minTarget, maxTarget) {
-    if (valor < minFuente) return minTarget;
-    if (valor > maxFuente) return maxTarget;
+// Mapping
+function map(value, minSource, maxSource, minTarget, maxTarget) {
+    if (value < minSource) return minTarget;
+    if (value > maxSource) return maxTarget;
 
-    var tmp = (maxTarget-minTarget)/(maxFuente-minFuente);
-    tmp = (tmp * (valor-minFuente))+minTarget;
+    var tmp = (maxTarget-minTarget)/(maxSource-minSource);
+    tmp = (tmp * (value-minSource))+minTarget;
     return tmp;
 }
 
@@ -288,14 +283,6 @@ function Microphone (_fft) {
     ///////////////////////////////////////////////
     ////////////// SOUND UTILITIES  //////////////
     /////////////////////////////////////////////
-    this.getVol = function(){
-
-      // map total volume to 100 for convenience
-      self.volume = map(self.vol, 0, self.peak_volume, 0, 100);
-      return self.volume;
-    }
-
-    this.getVolume = function() { return this.getVol();}
 
     //A more accurate way to get overall volume
     this.getRMS = function (spectrum) {
@@ -345,40 +332,12 @@ function mapFreq(i){
     return {bass: bass, mids: mids, highs: highs}
   }
 
-
-  this.getBass = function(){
-          return this.getMix().bass;
-    }
-
-  this.getMids = function(){
-        return this.getMix().mids;
-  }
-
-  this.getHighs = function(){
-        return this.getMix().highs;
-  }
-
-  this.getHighsVol = function(_min, _max){
-    var min = _min || 0;
-    var max = _max || 100;
-    var v = map(this.getRMS(this.getMix().highs), 0, self.peak_volume, min, max);
-    return v;
-  }
-
   this.getMidsVol = function(_min, _max){
     var min = _min || 0;
     var max = _max || 100;
     var v = map(this.getRMS(this.getMix().mids), 0, self.peak_volume, min, max);
     return v;
   }
-
-  this.getBassVol = function(_min, _max){
-    var min = _min || 0;
-    var max = _max || 100;
-    var v = map(this.getRMS(this.getMix().bass), 0, self.peak_volume, min, max);
-    return v;
-  }
-
 
   function adjustFreqData(frequencyData, ammt) {
     // get frequency data, remove obsolete
