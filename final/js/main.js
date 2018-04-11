@@ -41,6 +41,8 @@ function onReady(){
     canvasHeight = polyCanvas.height;
     xRate = canvasWidth/videoWidth*9;
     yRate = canvasHeight/videoHeight;
+
+    playAudio();
 }
 
 function draw(){
@@ -188,6 +190,14 @@ function saveBase64AsFile(base64, fileName) {
     link.click();
 }
 */
+
+// Audio output
+function playAudio(){
+  var audio = new Audio('audio/Pacific_Hike.mp3');
+  audio.loop = true
+  audio.play();
+}
+
 
 // Continuos Refresh
 window.requestAnimFrame = (function(){
