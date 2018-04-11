@@ -1,6 +1,6 @@
 # Polymer
 
-[logo]: img/polymer_logo.png
+![image](img/polymer_logo.png)
 
 Polymer is an interactive mirror experience that uses audio and video input to create an inspiring and immersive environment. Motion Tracking and microphone input determine whether the page should mirror you using sinus waves or a low poly pattern.
 
