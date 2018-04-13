@@ -17,7 +17,7 @@ This project is optimized for use with Google Chrome. It requires the use of a w
 
 
 ## Credit
-Project by [Sam Eckert](https://github.com/Sam0711er), [Joshua Bökle](https://github.com/joshuaboekle) & [Patrick Straub](https://github.com/Lacky-C-Flam) for the course 3-dimensionale Grundlagen at the [Hochschule für Gestaltung Schwäbisch Gmünd](https://github.com/hfg-gmuend).
+Project by [Sam Eckert](https://github.com/Sam0711er), [Joshua Bökle](https://github.com/joshuaboekle) & [Patrick Straub](https://github.com/Patrick9697) for the course 3-dimensionale Grundlagen at the [Hochschule für Gestaltung Schwäbisch Gmünd](https://github.com/hfg-gmuend).
 
 
 
