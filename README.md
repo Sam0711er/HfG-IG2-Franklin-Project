@@ -6,7 +6,6 @@ Polymer is an interactive mirror experience that uses audio and video input to c
 
 
 ## Installation / Usage
-A demo is available on [sam0711er.com/polymer](https://sam0711er.com/polymer).
 
 This project is optimized for use with Google Chrome. It requires the use of a webserver. We recommend [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb) as it allows for the easy creation of a webserver in Chrome without having to hassle with Terminal commands.
 
